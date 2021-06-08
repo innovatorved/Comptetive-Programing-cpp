@@ -1,0 +1,1 @@
+{"name":"Local: C27ReverseANumber","url":"c:\\Users\\VED GUPTA\\Desktop\\Cpp\\C27ReverseANumber.cpp","tests":[{"id":1623175965571,"input":"7892456","output":"6542987"},{"id":1623176006897,"input":"12345","output":"54321"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\VED GUPTA\\Desktop\\Cpp\\C27ReverseANumber.cpp","group":"local","local":true}
