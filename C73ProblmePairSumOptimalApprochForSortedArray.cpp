@@ -4,15 +4,15 @@ using namespace std;
 int32_t main(){
     // Pair Sum Problem Optimal Approch
     // Use in Sorted Array
-    int n;
+    int n;  // num
     cin>>n;
 
-    int arr[n];
+    int arr[n]; // Array
     for(int i=0; i<n; i++){
         cin>>arr[i];
     }
 
-    int k;
+    int k; // sum
     cin>>k;
 
     int low = 0;

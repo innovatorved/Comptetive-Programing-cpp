@@ -39,6 +39,6 @@ int32_t main(){
     int n;
     cin>>n;
 
-    cout<<"Decimal to hex : "<<D2H(n);
+    cout<<"Decimal to hex : "<<D2H(n)<<endl;
     return 0;
 }
