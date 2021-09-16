@@ -1,1 +1,0 @@
-{"name":"Local: C38BinaryToDecimal","url":"c:\\Users\\VED GUPTA\\Desktop\\Cpp\\C38BinaryToDecimal.cpp","tests":[{"id":1623266190061,"input":"1011","output":""},{"id":1623266795591,"input":"11001","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\VED GUPTA\\Desktop\\Cpp\\C38BinaryToDecimal.cpp","group":"local","local":true}
