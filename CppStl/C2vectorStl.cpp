@@ -6,6 +6,11 @@ int main(){
 
     // Initialize vector
     vector<int> v;
+    /*
+    vector<int> v1(5 , 1); //size 5 and initialize by 1
+    // copy one vector to another
+    vector<int> newvector(v1)
+    */
     cout<<"Capacity-->"<<v.capacity()<<endl;
 
     // Add element at back
