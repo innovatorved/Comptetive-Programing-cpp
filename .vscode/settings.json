@@ -5,7 +5,8 @@
         "chrono": "cpp",
         "random": "cpp",
         "limits": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "span": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
