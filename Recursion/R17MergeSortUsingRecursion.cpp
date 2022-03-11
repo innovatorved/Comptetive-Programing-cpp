@@ -56,6 +56,9 @@ void merge(int *arr , int start , int end){
     cout<<"StepsSorted->   ";
     PrintArray(arr , start , end);
     cout<<endl;
+
+    delete[]first;
+    delete[]second;
 }
 
 void MergeSort(int *arr , int start , int end){
