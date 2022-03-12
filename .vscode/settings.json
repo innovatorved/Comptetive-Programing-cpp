@@ -6,7 +6,9 @@
         "random": "cpp",
         "limits": "cpp",
         "valarray": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "variant": "cpp",
+        "vector": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
