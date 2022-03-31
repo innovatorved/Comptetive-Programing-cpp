@@ -3,8 +3,8 @@
 !*.*
 tempCodeRunnerFile*
 !/codehelp/**/
-!/codehelp/*.*
+!/codehelp/*.cpp
 /codehelp/tempCodeRunnerFile*
 .cph/
 
-!/*/*.*
+!/*/*.cpp
