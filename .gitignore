@@ -6,3 +6,5 @@ tempCodeRunnerFile*
 !/codehelp/*.*
 /codehelp/tempCodeRunnerFile*
 .cph/
+
+!/*/*.*
