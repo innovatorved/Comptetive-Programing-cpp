@@ -105,46 +105,30 @@ void Print(Node *&head)
     cout << temp->data << "->NULL" << endl;
 }
 
-Node *ReverseLinkedListUsingIteration(Node* &head)
-{
-    // Reverse An Linked List
+Node* ReverseKGroup(Node *&head , int k){
+    if(head == NULL){
+        return NULL;
+    }
+
     Node *prev = NULL;
     Node *curr = head;
-    Node *next;
-
-    while (curr != NULL)
-    {
+    Node *next = NULL;
+    int cnt = 0;
+    while(cnt<k && curr != NULL){
         next = curr->next;
         curr->next = prev;
 
         prev = curr;
         curr = next;
+        cnt++;
     }
+    if (next != NULL){
+        head->next = ReverseKGroup(next , k);
+    }
+
     return prev;
 }
 
-Node *ReverseLinkedListUsingRecursion(Node* &h){
-    
-    if(h == NULL || h->next == NULL){
-        return h;
-    }
-
-    Node * newHead = ReverseLinkedListUsingRecursion(h->next);
-    h->next->next = h;
-    h->next = NULL;
-
-    return newHead;
-}
-
-void SecoundApproachRecursionReverse(Node* &head , Node *curr , Node*prev){
-    if(curr == NULL){
-        head = prev;
-        return ;
-    }
-    SecoundApproachRecursionReverse(head , curr->next , curr);
-    curr->next = prev;
-    return;
-}
 
 int main()
 {
@@ -165,17 +149,9 @@ int main()
     InsertAtPosition(head, tail, 5, 3);
     InsertAtPosition(head, tail, 55, 1);
     InsertAtPosition(head, tail, 999, 50);
-    InsertAtTail(tail, 600);
     Print(head);
 
-    // Node *reverseLinkedListHeadRecursion = ReverseLinkedListUsingRecursion(head);
-    // Print(reverseLinkedListHeadRecursion);
-
-
-    // Node* reverseLinkedListHeadIteration = ReverseLinkedListUsingIteration(head);
-    // Print(reverseLinkedListHeadIteration);
-
-    SecoundApproachRecursionReverse(head , head , NULL);
+    ReverseKGroup(head , 2);
     Print(head);
 
     return 0;

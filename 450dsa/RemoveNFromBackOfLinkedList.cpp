@@ -105,77 +105,38 @@ void Print(Node *&head)
     cout << temp->data << "->NULL" << endl;
 }
 
-Node *ReverseLinkedListUsingIteration(Node* &head)
-{
-    // Reverse An Linked List
-    Node *prev = NULL;
-    Node *curr = head;
-    Node *next;
-
-    while (curr != NULL)
-    {
-        next = curr->next;
-        curr->next = prev;
-
-        prev = curr;
-        curr = next;
+int RemoveNFromBack(Node *&head , int n , Node * prev=NULL){
+    Node *temp = head;
+    if(temp == NULL){
+        return 1;
     }
-    return prev;
-}
-
-Node *ReverseLinkedListUsingRecursion(Node* &h){
-    
-    if(h == NULL || h->next == NULL){
-        return h;
+    int pos = RemoveNFromBack(temp->next , n , temp);
+    if(pos == n){
+        prev->next = temp->next;
+        return pos+1;
+    }
+    if(pos > n){
+        return pos+1;
     }
 
-    Node * newHead = ReverseLinkedListUsingRecursion(h->next);
-    h->next->next = h;
-    h->next = NULL;
+    return pos+1;
 
-    return newHead;
-}
-
-void SecoundApproachRecursionReverse(Node* &head , Node *curr , Node*prev){
-    if(curr == NULL){
-        head = prev;
-        return ;
-    }
-    SecoundApproachRecursionReverse(head , curr->next , curr);
-    curr->next = prev;
-    return;
 }
 
 int main()
 {
 
-    // create Nod
-    Node *start = new Node(12);
-
+    Node *start = new Node(2);
     Node *head = start;
     Node *tail = start;
-
-    // Insert At Head
-    InsertAtHead(head, 29);
+    InsertAtHead(head, 4);
+    InsertAtHead(head, 6);
+    InsertAtHead(head, 12);
     InsertAtHead(head, 3);
-    InsertAtHead(head, 1);
-    InsertAtHead(head, 9);
     InsertAtTail(tail, 0);
-    InsertAtTail(tail, 23);
-    InsertAtPosition(head, tail, 5, 3);
-    InsertAtPosition(head, tail, 55, 1);
-    InsertAtPosition(head, tail, 999, 50);
-    InsertAtTail(tail, 600);
     Print(head);
 
-    // Node *reverseLinkedListHeadRecursion = ReverseLinkedListUsingRecursion(head);
-    // Print(reverseLinkedListHeadRecursion);
-
-
-    // Node* reverseLinkedListHeadIteration = ReverseLinkedListUsingIteration(head);
-    // Print(reverseLinkedListHeadIteration);
-
-    SecoundApproachRecursionReverse(head , head , NULL);
+    RemoveNFromBack(head , 4 );
     Print(head);
 
     return 0;

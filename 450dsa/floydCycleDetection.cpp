@@ -94,6 +94,42 @@ void DeleteAtPosition(Node *&head, Node *&tail, int pos)
     }
 }
 
+bool detectCycle(Node *&head){
+    Node * slow = head;
+    Node * fast = head;
+    while(fast != NULL && fast->next != NULL){
+        slow = slow->next;
+        fast=fast->next->next;
+
+        if(fast == slow){
+            return true;
+        }
+    }
+    return false;
+}
+
+Node * DetectStart(Node *& head){
+    Node * slow = head;
+    Node * fast = head;
+    while(fast != NULL && fast->next != NULL){
+        slow = slow->next;
+        fast=fast->next->next;
+
+        if(fast == slow){
+            break;
+        }
+    }
+    if (fast == NULL || fast->next == NULL){
+        return NULL;
+    }
+    fast = head;
+    while(slow->next == fast->next){
+        slow = slow->next;
+        fast = fast->next;
+    }
+    return slow->next;
+
+}
 void Print(Node *&head)
 {
     Node *temp = head;
@@ -105,46 +141,32 @@ void Print(Node *&head)
     cout << temp->data << "->NULL" << endl;
 }
 
-Node *ReverseLinkedListUsingIteration(Node* &head)
+Node *FloydCycleDetection(Node *&head)
 {
-    // Reverse An Linked List
-    Node *prev = NULL;
-    Node *curr = head;
-    Node *next;
-
-    while (curr != NULL)
+    if (head == NULL)
     {
-        next = curr->next;
-        curr->next = prev;
-
-        prev = curr;
-        curr = next;
+        return head;
     }
-    return prev;
+    Node *slow = head;
+    Node *fast = head->next;
+
+    while (fast != NULL && slow != NULL)
+    {
+        slow = slow->next;
+        fast = fast->next;
+        if (fast != NULL)
+        {
+            fast = fast->next;
+        }
+        if (slow == fast)
+        {
+            return slow;
+        }
+    }
+
+    return NULL;
 }
 
-Node *ReverseLinkedListUsingRecursion(Node* &h){
-    
-    if(h == NULL || h->next == NULL){
-        return h;
-    }
-
-    Node * newHead = ReverseLinkedListUsingRecursion(h->next);
-    h->next->next = h;
-    h->next = NULL;
-
-    return newHead;
-}
-
-void SecoundApproachRecursionReverse(Node* &head , Node *curr , Node*prev){
-    if(curr == NULL){
-        head = prev;
-        return ;
-    }
-    SecoundApproachRecursionReverse(head , curr->next , curr);
-    curr->next = prev;
-    return;
-}
 
 int main()
 {
@@ -160,23 +182,26 @@ int main()
     InsertAtHead(head, 3);
     InsertAtHead(head, 1);
     InsertAtHead(head, 9);
-    InsertAtTail(tail, 0);
-    InsertAtTail(tail, 23);
-    InsertAtPosition(head, tail, 5, 3);
-    InsertAtPosition(head, tail, 55, 1);
-    InsertAtPosition(head, tail, 999, 50);
+    InsertAtTail(tail, 34);
     InsertAtTail(tail, 600);
+    InsertAtTail(tail, 900);
+    InsertAtTail(tail, 100);
+    InsertAtHead(head, 11);
     Print(head);
 
-    // Node *reverseLinkedListHeadRecursion = ReverseLinkedListUsingRecursion(head);
-    // Print(reverseLinkedListHeadRecursion);
+    cout << FloydCycleDetection(head)<< endl;
 
+    // Make Circular
+    tail->next = head->next->next;
+    cout<<tail->next->data<<endl;
 
-    // Node* reverseLinkedListHeadIteration = ReverseLinkedListUsingIteration(head);
-    // Print(reverseLinkedListHeadIteration);
+    cout << FloydCycleDetection(head)<< endl;
 
-    SecoundApproachRecursionReverse(head , head , NULL);
+    Node * EndNode = DetectStart(head);
+    // Remove loop by set nextpointer null
+    EndNode->next = NULL;
+
     Print(head);
-
+    
     return 0;
 }

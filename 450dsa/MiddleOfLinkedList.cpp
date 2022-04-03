@@ -105,45 +105,24 @@ void Print(Node *&head)
     cout << temp->data << "->NULL" << endl;
 }
 
-Node *ReverseLinkedListUsingIteration(Node* &head)
-{
-    // Reverse An Linked List
-    Node *prev = NULL;
-    Node *curr = head;
-    Node *next;
-
-    while (curr != NULL)
-    {
-        next = curr->next;
-        curr->next = prev;
-
-        prev = curr;
-        curr = next;
+Node* MiddleOfLinkedListUsingRecursion(Node* head , Node* secoundHead){
+    Node *temp1 = head;
+    Node* temp2 = secoundHead;
+    if(temp1 == NULL || temp1->next == NULL){
+        return temp2;
     }
-    return prev;
+    Node* middle = MiddleOfLinkedListUsingRecursion(temp1->next->next , temp2->next);
+    return middle;
 }
 
-Node *ReverseLinkedListUsingRecursion(Node* &h){
-    
-    if(h == NULL || h->next == NULL){
-        return h;
+Node* MiddleOfLinkedListUsingIteration(Node *head){
+    Node *temp1 = head;
+    Node* temp2 = head;
+    while(temp1 != NULL && temp1->next != NULL){
+        temp1 = temp1->next->next;
+        temp2 = temp2->next;
     }
-
-    Node * newHead = ReverseLinkedListUsingRecursion(h->next);
-    h->next->next = h;
-    h->next = NULL;
-
-    return newHead;
-}
-
-void SecoundApproachRecursionReverse(Node* &head , Node *curr , Node*prev){
-    if(curr == NULL){
-        head = prev;
-        return ;
-    }
-    SecoundApproachRecursionReverse(head , curr->next , curr);
-    curr->next = prev;
-    return;
+    return temp2;
 }
 
 int main()
@@ -166,17 +145,17 @@ int main()
     InsertAtPosition(head, tail, 55, 1);
     InsertAtPosition(head, tail, 999, 50);
     InsertAtTail(tail, 600);
+    InsertAtTail(tail, 2200);
     Print(head);
 
-    // Node *reverseLinkedListHeadRecursion = ReverseLinkedListUsingRecursion(head);
-    // Print(reverseLinkedListHeadRecursion);
+    Node* middle = MiddleOfLinkedListUsingRecursion(head , head);
+    cout<<middle->data<<endl;
 
+    Node* middle2 = MiddleOfLinkedListUsingIteration(head);
+    cout<<middle2->data<<endl;
 
-    // Node* reverseLinkedListHeadIteration = ReverseLinkedListUsingIteration(head);
-    // Print(reverseLinkedListHeadIteration);
-
-    SecoundApproachRecursionReverse(head , head , NULL);
     Print(head);
+
 
     return 0;
 }

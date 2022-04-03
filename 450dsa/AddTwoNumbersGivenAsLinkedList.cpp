@@ -105,78 +105,61 @@ void Print(Node *&head)
     cout << temp->data << "->NULL" << endl;
 }
 
-Node *ReverseLinkedListUsingIteration(Node* &head)
-{
-    // Reverse An Linked List
-    Node *prev = NULL;
-    Node *curr = head;
-    Node *next;
+Node* AddTwoNumGivenAsLinkedList(Node *&head1 , Node*&head2){
+    Node *temp1 = head1;
+    Node *temp2 = head2;
 
-    while (curr != NULL)
-    {
-        next = curr->next;
-        curr->next = prev;
+    Node *start = new Node(0);
+    Node *SumLinkedList = start;
+    Node *tail = start;
 
-        prev = curr;
-        curr = next;
+    int sum = 0;
+    int carry = 0;
+    while(temp1 != NULL || temp2 != NULL || carry != 0){
+        if(temp1 != NULL){
+            sum += temp1->data;
+            temp1 = temp1->next;
+        }
+        if (temp2 != NULL){
+            sum += temp2->data;
+            temp2 = temp2->next;
+        }
+        if(carry != 0){
+            sum += carry;
+        }
+        carry = sum/10;
+        InsertAtTail(tail , sum%10);
+        sum = 0;
     }
-    return prev;
+
+    return SumLinkedList->next;
 }
 
-Node *ReverseLinkedListUsingRecursion(Node* &h){
-    
-    if(h == NULL || h->next == NULL){
-        return h;
-    }
 
-    Node * newHead = ReverseLinkedListUsingRecursion(h->next);
-    h->next->next = h;
-    h->next = NULL;
-
-    return newHead;
-}
-
-void SecoundApproachRecursionReverse(Node* &head , Node *curr , Node*prev){
-    if(curr == NULL){
-        head = prev;
-        return ;
-    }
-    SecoundApproachRecursionReverse(head , curr->next , curr);
-    curr->next = prev;
-    return;
-}
 
 int main()
 {
 
-    // create Nod
-    Node *start = new Node(12);
+    Node *start1 = new Node(2);
+    Node *head1 = start1;
+    Node *tail1 = start1;
+    InsertAtHead(head1, 4);
+    InsertAtHead(head1, 3);
+    InsertAtTail(tail1, 0);
+    Print(head1);
 
-    Node *head = start;
-    Node *tail = start;
+    Node *start2 = new Node(3);
+    Node *head2 = start2;
+    Node *tail2 = start2;
+    InsertAtHead(head2, 7);
+    InsertAtHead(head2, 9);
+    InsertAtHead(head2, 2);
+    InsertAtHead(head2, 0);
+    Print(head2);
 
-    // Insert At Head
-    InsertAtHead(head, 29);
-    InsertAtHead(head, 3);
-    InsertAtHead(head, 1);
-    InsertAtHead(head, 9);
-    InsertAtTail(tail, 0);
-    InsertAtTail(tail, 23);
-    InsertAtPosition(head, tail, 5, 3);
-    InsertAtPosition(head, tail, 55, 1);
-    InsertAtPosition(head, tail, 999, 50);
-    InsertAtTail(tail, 600);
-    Print(head);
+    Node *sumOf2 = AddTwoNumGivenAsLinkedList(head1 , head2);
+    Print(sumOf2);
 
-    // Node *reverseLinkedListHeadRecursion = ReverseLinkedListUsingRecursion(head);
-    // Print(reverseLinkedListHeadRecursion);
-
-
-    // Node* reverseLinkedListHeadIteration = ReverseLinkedListUsingIteration(head);
-    // Print(reverseLinkedListHeadIteration);
-
-    SecoundApproachRecursionReverse(head , head , NULL);
-    Print(head);
 
     return 0;
 }

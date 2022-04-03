@@ -105,52 +105,27 @@ void Print(Node *&head)
     cout << temp->data << "->NULL" << endl;
 }
 
-Node *ReverseLinkedListUsingIteration(Node* &head)
-{
-    // Reverse An Linked List
-    Node *prev = NULL;
-    Node *curr = head;
-    Node *next;
-
-    while (curr != NULL)
-    {
-        next = curr->next;
-        curr->next = prev;
-
-        prev = curr;
-        curr = next;
-    }
-    return prev;
-}
-
-Node *ReverseLinkedListUsingRecursion(Node* &h){
-    
-    if(h == NULL || h->next == NULL){
-        return h;
+bool isCircular(Node *head){
+    if (head == NULL){
+        return true;
     }
 
-    Node * newHead = ReverseLinkedListUsingRecursion(h->next);
-    h->next->next = h;
-    h->next = NULL;
+    Node *temp = head->next;
 
-    return newHead;
-}
-
-void SecoundApproachRecursionReverse(Node* &head , Node *curr , Node*prev){
-    if(curr == NULL){
-        head = prev;
-        return ;
+    while(temp != NULL && temp != head){
+        temp = temp->next;
     }
-    SecoundApproachRecursionReverse(head , curr->next , curr);
-    curr->next = prev;
-    return;
+    if(temp == head){
+        return true;
+    }
+    return false;
 }
 
 int main()
 {
 
     // create Nod
-    Node *start = new Node(12);
+    Node *start = new Node(10);
 
     Node *head = start;
     Node *tail = start;
@@ -168,15 +143,11 @@ int main()
     InsertAtTail(tail, 600);
     Print(head);
 
-    // Node *reverseLinkedListHeadRecursion = ReverseLinkedListUsingRecursion(head);
-    // Print(reverseLinkedListHeadRecursion);
+    cout<<isCircular(head)<<endl;
 
-
-    // Node* reverseLinkedListHeadIteration = ReverseLinkedListUsingIteration(head);
-    // Print(reverseLinkedListHeadIteration);
-
-    SecoundApproachRecursionReverse(head , head , NULL);
-    Print(head);
+    // Make Circular
+    tail->next = head;
+    cout<<isCircular(head)<<endl;
 
     return 0;
 }
