@@ -105,39 +105,61 @@ void Print(Node *&head)
     cout << temp->data << "->NULL" << endl;
 }
 
-int RemoveNFromBack(Node *&head , int n , Node * prev=NULL){
+int getLength(Node *&head){
+    int cnt = 0;
+    Node* temp = head;
+    while(temp!=NULL){
+        temp = temp->next;
+        cnt++;
+    }
+    return cnt;
+}
+
+void RotateALinkedList(Node* &head , int k){
+    int size = getLength(head);
+    if(k == size || k == 0){
+        return;
+    }
+    if(k > size){
+        k = k%size;
+    }
     Node *temp = head;
-    if(temp == NULL){
-        return 1;
-    }
-    int pos = RemoveNFromBack(temp->next , n , temp);
-    if(pos == n){
-        prev->next = temp->next;
-        return pos+1;
-    }
-    if(pos > n){
-        return pos+1;
-    }
+    int remain = size - k;
+    while(remain != 1){
+        temp = temp->next;
+        remain--;
 
-    return pos+1;
+    }
+    Node *head2 = temp->next;
+    Node *temp2 = temp->next;
+    temp->next = NULL;
 
+    while(temp2->next != NULL){
+        temp2 = temp2->next;
+    }
+    temp2->next = head;
+    head = head2;
 }
 
 int main()
 {
 
-    Node *start = new Node(2);
+    Node *start = new Node(8);
     Node *head = start;
     Node *tail = start;
-    InsertAtHead(head, 4);
-    InsertAtHead(head, 6);
-    InsertAtHead(head, 12);
-    InsertAtHead(head, 3);
-    InsertAtTail(tail, 0);
+    InsertAtTail(tail, 9);
+    InsertAtTail(tail, 3);
+    InsertAtTail(tail, 13);
+    InsertAtTail(tail, 4);
+    InsertAtTail(tail, 2);
+    InsertAtTail(tail, 1);
     Print(head);
 
-    RemoveNFromBack(head , 4 );
+    cout<<"Size->"<<getLength(head)<<endl;
+    
+    RotateALinkedList(head , 3);
     Print(head);
+
 
     return 0;
 

@@ -105,41 +105,103 @@ void Print(Node *&head)
     cout << temp->data << "->NULL" << endl;
 }
 
-int RemoveNFromBack(Node *&head , int n , Node * prev=NULL){
-    Node *temp = head;
-    if(temp == NULL){
-        return 1;
+Node *findMid(Node *head)
+{
+    Node *slow = head;
+    Node *high = head->next;
+    while (high != NULL && high->next != NULL)
+    {
+        slow = slow->next;
+        high = high->next->next;
     }
-    int pos = RemoveNFromBack(temp->next , n , temp);
-    if(pos == n){
-        prev->next = temp->next;
-        return pos+1;
+    return slow;
+}
+
+Node *Merge(Node *left, Node *right)
+{
+    if (left == NULL)
+    {
+        return right;
     }
-    if(pos > n){
-        return pos+1;
+    if (right == NULL)
+    {
+        return left;
     }
 
-    return pos+1;
+    Node *ans = new Node(-1);
+    Node *temp = ans;
+    while (left != NULL && right != NULL)
+    {
+        if (left->data < right->data)
+        {
+            temp->next = left;
+            temp = left;
+            left = left->next;
+        }
+        else
+        {
+            temp->next = right;
+            temp = right;
+            right = right->next;
+        }
+    }
+    while (left != NULL)
+    {
+        temp->next = left;
+        temp = left;
+        left = left->next;
+    }
+    while (right != NULL)
+    {
+        temp->next = right;
+        temp = right;
+        right = right->next;
+    }
+    ans = ans->next ;
+    return ans;
+}
 
+Node *MergeSort(Node *head)
+{
+    if (head == NULL || head -> next == NULL)
+    {
+        return head;
+    }
+    Node *mid = findMid(head);
+    Node *LeftHalf = head;
+    Node *RightHalf = mid->next;
+    mid->next = NULL;
+
+    Node* left = MergeSort(LeftHalf);
+    Node* right = MergeSort(RightHalf);
+
+    Node *mergeLinkedList = Merge(left , right);
+    return mergeLinkedList;
 }
 
 int main()
 {
 
-    Node *start = new Node(2);
+    // create Nod
+    Node *start = new Node(12);
     Node *head = start;
     Node *tail = start;
-    InsertAtHead(head, 4);
-    InsertAtHead(head, 6);
-    InsertAtHead(head, 12);
+    InsertAtHead(head, 29);
     InsertAtHead(head, 3);
+    InsertAtHead(head, 1);
+    InsertAtHead(head, 9);
     InsertAtTail(tail, 0);
+    InsertAtTail(tail, 23);
+    InsertAtPosition(head, tail, 5, 3);
+    InsertAtPosition(head, tail, 55, 1);
+    InsertAtPosition(head, tail, 999, 50);
+    InsertAtTail(tail, 600);
     Print(head);
 
-    RemoveNFromBack(head , 4 );
+    Node * mergeS = MergeSort(head);
     Print(head);
+    Print(mergeS);
+
 
     return 0;
-
 }
-

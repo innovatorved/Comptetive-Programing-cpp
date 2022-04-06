@@ -105,39 +105,83 @@ void Print(Node *&head)
     cout << temp->data << "->NULL" << endl;
 }
 
-int RemoveNFromBack(Node *&head , int n , Node * prev=NULL){
-    Node *temp = head;
-    if(temp == NULL){
-        return 1;
+Node* ReverseLinkedList(Node *&head){
+    if (head == NULL && head->next == NULL){
+        return head;
     }
-    int pos = RemoveNFromBack(temp->next , n , temp);
-    if(pos == n){
-        prev->next = temp->next;
-        return pos+1;
-    }
-    if(pos > n){
-        return pos+1;
-    }
+    Node *prev = NULL;
+    Node *next;
+    Node *curr = head;
 
-    return pos+1;
+    while(curr != NULL){
+        next = curr->next;
+        curr->next = prev;
 
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+
+}
+
+Node * findMid(Node*&head){
+    Node *slow = head;
+    Node *high = head;
+    while(high != NULL){
+        slow = slow->next;
+        high = high->next;
+        if (high!=NULL){
+            high = high->next;
+        }
+    }
+    return slow;
+}
+
+bool CheckPalindrome(Node* &head){
+    Node *mid = findMid(head);
+    // reverse from mid
+    Print(mid);
+    Node *newHead = ReverseLinkedList(mid);
+    Print(head);
+    Print(newHead);
+    
+    Node *temp1 = head;
+    Node *temp2 = newHead;
+
+    while(temp1 != NULL || temp2 != NULL ){
+        if (temp1->data == newHead->data){
+            return true;
+        }
+        if(temp1->data != temp2->data && temp1->next->data != mid->data && mid->data != newHead->data ){
+            cout<<temp1->data<<endl;
+            cout<<temp2->data<<endl;
+            return 0;
+        }
+        if(temp2 != NULL){
+            temp2 = temp2->next;
+        }
+        temp1 = temp1->next;
+    }
+    return 1;
 }
 
 int main()
 {
 
-    Node *start = new Node(2);
+    Node *start = new Node(1);
     Node *head = start;
     Node *tail = start;
-    InsertAtHead(head, 4);
-    InsertAtHead(head, 6);
-    InsertAtHead(head, 12);
-    InsertAtHead(head, 3);
-    InsertAtTail(tail, 0);
+    InsertAtTail(tail, 2);
+    InsertAtTail(tail, 3);
+    InsertAtTail(tail, 4);
+    InsertAtTail(tail, 4);
+    InsertAtTail(tail, 2);
+    InsertAtTail(tail, 1);
     Print(head);
 
-    RemoveNFromBack(head , 4 );
-    Print(head);
+    cout<<CheckPalindrome(head)<<endl;
+
+
 
     return 0;
 

@@ -1,2 +1,2 @@
 
-    Node *start = new N
+            return true;
