@@ -22,7 +22,7 @@ class abstraction {
     }
 };
 int main() {
-    implementAbstraction obj;
+    abstraction obj;
     obj.set(10, 20);
     obj.display();
     return 0;
